@@ -9,15 +9,18 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 // import IconButton from '@material-ui/core/IconButton';
 // import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import Auth from "../Auth/Auth";
 import Home from "../Home";
+import Controls from "../controls/Controls";
 
 const CustomNavbar = () => {
   const classes = useStyles();
+  //const reports={['Course Description','Opening report','Closing And Attainment Report']}
 
   return (
     <Container className={classes.navbarContainer}>
@@ -39,18 +42,27 @@ const CustomNavbar = () => {
         <Link to="/" className={classes.automationLink}>
           AUTOMATION
         </Link>
+        {/* <Controls.Select
+          name="reports"
+          label="Reports"
+          value={values.courseCode}
+          onChange={handleInputChange}
+          options={dropdownService.courseCodeItems()}
+          // error={errors.creditsLecture}
+        /> */}
         <Link to="/courseDescription1" className={classes.automationLink}>
           Reports
         </Link>
+
         {/* <Link to="/courseDescription1" className={classes.automationLink}>
           Reports
         </Link> */}
         {/* <Link to="/openingReport" className={classes.automationLink}>
           Reports
         </Link> */}
-        <Link to="/attainmentReport" className={classes.automationLink}>
+        {/* <Link to="/attainmentReport" className={classes.automationLink}>
           Reports
-        </Link>
+        </Link> */}
 
         {/* <text className={classes.navbarText}>
                     Reports

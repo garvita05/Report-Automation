@@ -9,6 +9,7 @@ import CustomNavbar from "./components/CustomNavbar/CustomNavbar";
 import CourseDescription1 from "./components/Reports/CourseDescription1";
 import OpeningReport from "./components/Reports/OpeningReport";
 import AttainmentReport from "./components/Reports/AttainmentReport";
+import SuccessScreen from "./components/Screens/successScreen";
 
 const App = () => {
   return (
@@ -19,10 +20,24 @@ const App = () => {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/courseDescription" element={<CourseDescription />} />
           <Route path="/courseDescription1" element={<CourseDescription1 />} />
           <Route path="/openingReport" element={<OpeningReport />} />
           <Route path="/attainmentReport" element={<AttainmentReport />} />
+          <Route
+            path="/courseDescription1/successScreen"
+            element={<SuccessScreen />}
+            name="successScreen"
+          />
+          <Route
+            path="/openingReport/successScreen"
+            element={<SuccessScreen />}
+            name="successScreen"
+          />
+          <Route
+            path="/attainmentReport/successScreen"
+            element={<SuccessScreen />}
+            name="successScreen"
+          />
         </Routes>
         {/* <Home /> */}
       </Container>

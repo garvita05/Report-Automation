@@ -7,6 +7,7 @@ import {
   Container,
   TextField,
   Typography,
+  Button,
 } from "@material-ui/core";
 import { useForm, Form } from "./useForm";
 import Controls from "../controls/Controls";
@@ -20,8 +21,20 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const OpeningReport = () => {
+  const navigate = useNavigate();
+
+  var [jhool, setJhool] = useState([
+    {
+      course_name: "software eng.",
+    },
+    {
+      course_name: "software dev.",
+    },
+  ]);
   const classes = useStyles();
   const [departmentName, setDepartmentName] = useState("");
   const intialFValues = {
@@ -124,10 +137,10 @@ const OpeningReport = () => {
     setGaps([
       ...gaps,
       {
-        topicsToBeIntroduced: "",
-        strengthenCo: "",
-        strengthenPoPso: "",
-        methodOfIdentification: "",
+        topics: "",
+        strengthen_cos: "",
+        strengthen_pos: "",
+        method: "",
       },
     ]);
   };
@@ -175,18 +188,18 @@ const OpeningReport = () => {
   ]);
   const [gaps, setGaps] = useState([
     {
-      topicsToBeIntroduced: "",
-      strengthenCo: "",
-      strengthenPoPso: "",
-      methodOfIdentification: "",
+      topics: "",
+      strengthen_cos: "",
+      strengthen_pos: "",
+      method: "",
     },
   ]);
 
   const [modifications, setModifications] = useState([
     {
-      detailsOfModifications: "",
-      justfications: "",
-      strengthensPos: "",
+      details: "",
+      Justification: "",
+      strenghten_pos: "",
     },
   ]);
   const handleChangeModifications = (index6, event) => {
@@ -198,9 +211,9 @@ const OpeningReport = () => {
     setModifications([
       ...modifications,
       {
-        detailsOfModifications: "",
-        justfications: "",
-        strengthensPos: "",
+        details: "",
+        Justification: "",
+        strenghten_pos: "",
       },
     ]);
   };
@@ -239,6 +252,35 @@ const OpeningReport = () => {
     setActions(value);
   };
 
+  function handleSubmit() {
+    let bucket = ["123456", "123457", "123458"];
+    var obj = {
+      course_code: bucket[values.courseCode - 1],
+      semester: values.semester,
+      Program_name: values.programName,
+      Year: "2022",
+      gap_table: gaps,
+      modification_table: modifications,
+      innovation_teaching_and_methods_to_be_used: values.innovativeTeaching,
+      Actions_for_improving_Co_table: actions,
+      strategies_for: [values.weakLearners, values.brightStudents],
+      innovation_evaluation_strategy: values.evalStrategy,
+      Module_coordinator: coordinator,
+      po_pso_table: mappingValues,
+    };
+    console.log(obj);
+    axios
+      .post("http://localhost:5000/api/postOpeningreport/", obj)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        navigate("successScreen");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className={classes.mainContainer}>
       <Paper className={classes.pageContent}>
@@ -269,13 +311,21 @@ const OpeningReport = () => {
                 onChange={handleInputChange}
                 items={semesterItems}
               />
-              <Controls.Select
+              {/* <Controls.Select
                 name="courseName"
                 label="Course Name"
                 value={values.courseName}
                 onChange={handleInputChange}
                 options={dropdownService.courseNameItems()}
                 // error={errors.creditsLecture}
+              /> */}
+              <TextField
+                variant="outlined"
+                label="Course Name"
+                name="courseName"
+                value={values.courseName}
+                onChange={handleInputChange}
+                style={{ width: "35%" }}
               />
               <Controls.Select
                 name="courseCode"
@@ -331,7 +381,7 @@ const OpeningReport = () => {
               <TextField
                 variant="outlined"
                 label="No"
-                name="CourseOutcomeNum"
+                name="courseOutcomeNum"
                 value={courseOutcome.courseOutcomeNum}
                 onChange={(event) => handleChangeCourseOutcome(index3, event)}
                 style={{ width: "10%" }}
@@ -523,24 +573,24 @@ const OpeningReport = () => {
               <TextField
                 variant="outlined"
                 label="Topics to be introduced"
-                name="topicsToBeIntroduced"
-                value={gaps.topicsToBeIntroduced}
+                name="topics"
+                value={gaps.topics}
                 onChange={(event) => handleChangeGaps(index5, event)}
                 style={{ width: "20%" }}
               />
               <TextField
                 variant="outlined"
                 label="Strengthen CO"
-                name="strengthenCo"
-                value={gaps.strengthenCo}
+                name="strengthen_cos"
+                value={gaps.strengthen_cos}
                 onChange={(event) => handleChangeGaps(index5, event)}
                 style={{ width: "20%" }}
               />
               <TextField
                 variant="outlined"
                 label="Strengthen PO,PSO"
-                name="strengthenPoPso"
-                value={gaps.strengthenPoPso}
+                name="strengthen_pos"
+                value={gaps.strengthen_pos}
                 onChange={(event) => handleChangeGaps(index5, event)}
                 style={{ width: "20%" }}
               />
@@ -548,7 +598,7 @@ const OpeningReport = () => {
                 variant="outlined"
                 label="Method Of Indentification"
                 name="methodOfIndentification"
-                value={gaps.methodOfIdentification}
+                value={gaps.methodOfIndentification}
                 onChange={(event) => handleChangeGaps(index5, event)}
                 style={{ width: "20%" }}
               />
@@ -574,24 +624,24 @@ const OpeningReport = () => {
               <TextField
                 variant="outlined"
                 label="Details of Modification (Addition/Removal)"
-                name="detailsOfModifications"
-                value={modifications.detailsOfModifications}
+                name="details"
+                value={modifications.details}
                 onChange={(event) => handleChangeModifications(index6, event)}
                 style={{ width: "35%" }}
               />
               <TextField
                 variant="outlined"
                 label="Justification"
-                name="justifications"
-                value={modifications.justifications}
+                name="Justification"
+                value={modifications.Justification}
                 onChange={(event) => handleChangeModifications(index6, event)}
                 style={{ width: "15%" }}
               />
               <TextField
                 variant="outlined"
                 label="Strengthens POs/PSOs"
-                name="strengthensPos"
-                value={modifications.strengthensPos}
+                name="strenghten_pos"
+                value={modifications.strenghten_pos}
                 onChange={(event) => handleChangeModifications(index6, event)}
                 style={{ width: "20%" }}
               />
@@ -633,8 +683,8 @@ const OpeningReport = () => {
               <TextField
                 variant="outlined"
                 label="Strengthens POs/PSOs"
-                name="strengthensPos"
-                value={modifications.strengthensPos}
+                name="strenghten_pos"
+                value={modifications.strenghten_pos}
                 onChange={(event) => handleChangeActions(index7, event)}
                 style={{ width: "20%" }}
               />
@@ -700,6 +750,7 @@ const OpeningReport = () => {
             style={{ width: "80%", height: "70%" }}
           />
         </Form>
+        <Button onClick={handleSubmit}>submit</Button>
       </Paper>
     </div>
   );

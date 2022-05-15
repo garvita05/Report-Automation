@@ -6,6 +6,7 @@ import {
   Container,
   TextField,
   Typography,
+  Button,
 } from "@material-ui/core";
 import useStyles from "./courseDescriptionStyles";
 import { useForm, Form } from "./useForm";
@@ -20,8 +21,40 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CourseDescription1 = () => {
+  let navigate = useNavigate();
+
+  function handleSubmit() {
+    console.log("clicked");
+    let bucket = ["123456", "123457", "123458"];
+    var obj = {
+      course_code: bucket[values.courseCode],
+      course_name: values.courseName,
+      course_credits:
+        values.creditsLab + values.creditsLecture + values.creditsTutorial,
+      contact_hours: values.contactHours,
+      Branch: values.branch,
+      semester: values.semester,
+      Module_table: inputFeilds,
+      course_outcome: courseOutcome,
+      faculty_table: faculty,
+      text_Book_table: books,
+    };
+    console.log(obj);
+    axios
+      .post("http://localhost:5000/api/enterCourseDescription/", obj)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        navigate("successScreen");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   var courses_dict = {
     123456: {
       course_code: "123456",
@@ -160,11 +193,18 @@ const CourseDescription1 = () => {
       ],
     },
   };
+
+  // const handleInputCode = () => {
+
+  //     values.
+
+  // }
+
   const classes = useStyles();
   const intialFValues = {
     courseName: "",
     courseCode: "",
-    semester: "even",
+    semester: "",
     branch: "",
     dateFrom: new Date(),
     dateTo: new Date(),
@@ -180,9 +220,10 @@ const CourseDescription1 = () => {
   };
   const [inputFeilds, setInputFeilds] = useState([
     {
-      moduleName: "",
-      moduleDescription: "",
-      moduleLectures: "",
+      module_no: "",
+      title: "",
+      topic: "",
+      no_of_lectures: "",
     },
   ]);
   const [coordinator, setCoordinator] = useState([
@@ -259,15 +300,15 @@ const CourseDescription1 = () => {
   };
   const [faculty, setFaculty] = useState([
     {
-      facultyName: "",
-      facultyCode: "",
+      faculty_name: "",
+      faculty_id: "",
     },
   ]);
   const [courseOutcome, setCourseOutcome] = useState([
     {
-      courseOutcomeNum: "",
-      courseOutcomeDescription: "",
-      courseOutcomeLevel: "",
+      index: "",
+      Description: "",
+      cognitive_level: "",
     },
   ]);
   const getValue = () => {
@@ -278,9 +319,9 @@ const CourseDescription1 = () => {
     setCourseOutcome([
       ...courseOutcome,
       {
-        courseOutcomeNum: "",
-        courseOutcomeDescription: "",
-        courseOutcomeLevel: "",
+        index: "",
+        Description: "",
+        cognitive_level: "",
       },
     ]);
   };
@@ -313,8 +354,8 @@ const CourseDescription1 = () => {
     setFaculty([
       ...faculty,
       {
-        facultyName: "",
-        facultyCode: "",
+        faculty_name: "",
+        faculty_id: "",
       },
     ]);
   };
@@ -322,9 +363,9 @@ const CourseDescription1 = () => {
     setInputFeilds([
       ...inputFeilds,
       {
-        moduleName: "",
-        moduleDescription: "",
-        moduleLectures: "",
+        module_no: "",
+        title: "",
+        topic: "",
       },
     ]);
   };
@@ -375,7 +416,7 @@ const CourseDescription1 = () => {
                 label="Course Name"
                 name="courseName"
                 value={values.courseName}
-                onChange={handleChangeInput}
+                onChange={handleInputChange}
                 style={{ width: "35%" }}
               />
 
@@ -429,7 +470,7 @@ const CourseDescription1 = () => {
               <Controls.Select
                 name="contactHours"
                 label="Contact Hours"
-                value={values.creditsLab}
+                value={values.contactHours}
                 onChange={handleInputChange}
                 options={lectureCreditItems}
 
@@ -531,16 +572,16 @@ const CourseDescription1 = () => {
                   <TextField
                     variant="outlined"
                     label="Faculty Name"
-                    name="facultyName"
-                    value={faculty.facultyName}
+                    name="faculty_name"
+                    value={faculty.faculty_name}
                     onChange={(event) => handleChangeFaculty(index2, event)}
                     style={{ width: "35%" }}
                   />
                   <TextField
                     variant="outlined"
                     label="Faculty Code"
-                    name="facultyCode"
-                    value={faculty.facultyCode}
+                    name="faculty_id"
+                    value={faculty.faculty_id}
                     onChange={(event) => handleChangeFaculty(index2, event)}
                     style={{ width: "35%" }}
                   />
@@ -571,24 +612,24 @@ const CourseDescription1 = () => {
                   <TextField
                     variant="outlined"
                     label="Module Name"
-                    name="moduleName"
-                    value={inputFeilds.moduleName}
+                    name="module_no"
+                    value={inputFeilds.module_no}
                     onChange={(event) => handleChangeInput(index, event)}
                     style={{ width: "25%" }}
                   />
                   <TextField
                     variant="outlined"
                     label="Topics "
-                    name="moduleDescription"
-                    value={inputFeilds.moduleDescription}
+                    name="title"
+                    value={inputFeilds.title}
                     onChange={(event) => handleChangeInput(index, event)}
                     style={{ width: "20%" }}
                   />
                   <TextField
                     variant="outlined"
                     label="Lectures "
-                    name="moduleLectures"
-                    value={inputFeilds.moduleLectures}
+                    name="topic"
+                    value={inputFeilds.topic}
                     onChange={(event) => handleChangeInput(index, event)}
                     style={{ width: "20%" }}
                   />
@@ -619,8 +660,8 @@ const CourseDescription1 = () => {
                   <TextField
                     variant="outlined"
                     label="No"
-                    name="CourseOutcomeNum"
-                    value={courseOutcome.courseOutcomeNum}
+                    name="index"
+                    value={courseOutcome.index}
                     onChange={(event) =>
                       handleChangeCourseOutcome(index3, event)
                     }
@@ -629,8 +670,8 @@ const CourseDescription1 = () => {
                   <TextField
                     variant="outlined"
                     label="Course Outcome Description"
-                    name="courseOutcomeDescription"
-                    value={courseOutcome.courseOutcomeDescription}
+                    name="Description"
+                    value={courseOutcome.Description}
                     onChange={(event) =>
                       handleChangeCourseOutcome(index3, event)
                     }
@@ -639,8 +680,8 @@ const CourseDescription1 = () => {
                   <TextField
                     variant="outlined"
                     label="Course Outcome Level"
-                    name="courseOutcomeLevel"
-                    value={courseOutcome.courseOutcomeLevel}
+                    name="cognitive_level"
+                    value={courseOutcome.cognitive_level}
                     onChange={(event) =>
                       handleChangeCourseOutcome(index3, event)
                     }
@@ -679,8 +720,8 @@ const CourseDescription1 = () => {
                     <TextField
                       variant="outlined"
                       label="No"
-                      name="CourseOutcomeNum"
-                      value={courseOutcome.courseOutcomeNum}
+                      name="index"
+                      value={courseOutcome.index}
                       onChange={(event) =>
                         handleChangeCourseOutcome(index3, event)
                       }
@@ -691,7 +732,6 @@ const CourseDescription1 = () => {
               </TableBody> */}
           {/* </Table>
           </TableContainer> */}
-
           {ta.map((ta, index4) => (
             <div key={index4} className={classes.insideDiv}>
               <Typography className={classes.captionsText}>
@@ -762,16 +802,16 @@ const CourseDescription1 = () => {
                 <TextField
                   variant="outlined"
                   label="Name"
-                  name="name"
-                  value={books.name}
+                  name="Name"
+                  value={books.Name}
                   onChange={(event) => handleChangeBooks(index5, event)}
                   style={{ width: "15%" }}
                 />
                 <TextField
                   variant="outlined"
                   label="Author"
-                  name="author"
-                  value={books.author}
+                  name="Author"
+                  value={books.Author}
                   onChange={(event) => handleChangeBooks(index5, event)}
                   style={{ width: "15%" }}
                 />
@@ -791,6 +831,14 @@ const CourseDescription1 = () => {
               </div>
             ))}
           </div>
+
+          <Button
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            submit
+          </Button>
         </Form>
       </Paper>
     </Container>

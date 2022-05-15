@@ -5,6 +5,7 @@ export function useForm(intialFValues) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     setValues({
       ...values,
       [name]: value,

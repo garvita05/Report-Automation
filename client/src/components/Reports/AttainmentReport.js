@@ -4,6 +4,7 @@ import {
   Container,
   TextField,
   Typography,
+  Button,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import useStyles from "./attainmentReportStyles";
@@ -19,12 +20,46 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AttainmentReport = () => {
+  let navigate = useNavigate();
+
+  function handleSubmit() {
+    console.log("clicked");
+    let bucket = ["123456", "123457", "123458"];
+    var obj = {
+      course_code: values.courseCode,
+      NBA_code: values.nbaCode,
+      semester: values.semester,
+      academic_year: values.academicYear,
+      avg_co_attainment_table: attainmentLab,
+      co_po_table_mapping: mappingValues,
+      innovative_evaluation_strategy_used: values.innovationStrategy,
+      innovative_teaching_and_learning_methods_used: values.innovativeTeaching,
+      Suggestions_for_improvement: suggestions,
+    };
+    console.log(obj);
+    axios
+      .post("http://localhost:5000/api/postattainmentReport", obj)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        navigate("successScreen");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   const classes = useStyles();
   const intialFValues = {
     innovativeTeaching: "",
     innovationStrategy: "",
+    semester: "",
+    academicYear: "",
+    nbaCode: "",
+    courseCode: "",
   };
   const { values, setValues, handleInputChange } = useForm(intialFValues);
   const [attainmentLab, setAttainmentLab] = useState([
@@ -468,7 +503,7 @@ const AttainmentReport = () => {
           style={{ width: "80%" }}
         />
         <Typography className={classes.typoText}>
-          Innovative Teaching and Learning Method To Be Used
+          Innovative Teaching and Learning Method Used
         </Typography>
         <TextField
           multiline
@@ -477,8 +512,52 @@ const AttainmentReport = () => {
           name="innovativeTeaching"
           value={values.innovativeTeaching}
           onChange={handleInputChange}
-          style={{ width: "80%", height: "70%" }}
+          style={{ width: "80%" }}
         />
+        <Typography className={classes.typoText}>Semester</Typography>
+        <TextField
+          multiline
+          variant="outlined"
+          label="Semester"
+          name="semester"
+          value={values.semester}
+          onChange={handleInputChange}
+        />
+        <Typography className={classes.typoText}>NBA code</Typography>
+        <TextField
+          multiline
+          variant="outlined"
+          label="NBA Code"
+          name="nbaCode"
+          value={values.nbaCode}
+          onChange={handleInputChange}
+        />
+        <Typography className={classes.typoText}>Academic Year</Typography>
+        <TextField
+          multiline
+          variant="outlined"
+          label="Academic Year"
+          name="academicYear"
+          value={values.academicYear}
+          onChange={handleInputChange}
+        />
+        <Typography className={classes.typoText}>Course code</Typography>
+        <TextField
+          multiline
+          variant="outlined"
+          label="Course Code"
+          name="courseCode"
+          value={values.courseCode}
+          onChange={handleInputChange}
+        />
+
+        <Button
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
+          submit
+        </Button>
       </Paper>
     </div>
   );
