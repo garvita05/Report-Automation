@@ -17,9 +17,24 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import Auth from "../Auth/Auth";
 import Home from "../Home";
 import Controls from "../controls/Controls";
+import { useForm } from "../Reports/useForm";
 
 const CustomNavbar = () => {
   const classes = useStyles();
+  const intialFValues = {
+    report: "",
+  };
+  const reportItems = [
+    { id: "Course Description", title: "Course Description" },
+    { id: "Opening Report", title: "Opening Report" },
+    {
+      id: "Attainment and Closing Report",
+      title: "Attainment and ClosingReport",
+    },
+  ];
+
+  const { values, setValues, handleInputChange } = useForm(intialFValues);
+
   //const reports={['Course Description','Opening report','Closing And Attainment Report']}
 
   return (
@@ -50,7 +65,8 @@ const CustomNavbar = () => {
           options={dropdownService.courseCodeItems()}
           // error={errors.creditsLecture}
         /> */}
-        <Link to="/courseDescription1" className={classes.automationLink}>
+
+        <Link to="/reportScreen" className={classes.automationLink}>
           Reports
         </Link>
 

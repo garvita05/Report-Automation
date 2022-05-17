@@ -12,6 +12,7 @@ import AttainmentReport from "./components/Reports/AttainmentReport";
 import SuccessScreen from "./components/Screens/successScreen";
 import GetCourseDescription from "./components/Reports/getCourseDescriptionForm";
 import CourseReport from "./components/Reports/CourseReport";
+import ReportScreen from "./components/Reports/ReportScreen";
 
 const App = () => {
   return (
@@ -49,6 +50,11 @@ const App = () => {
             path="/courseDescription1/getCourseDescription/CourseReport"
             element={<CourseReport />}
             name="courseReport"
+          />
+          <Route
+            path="/reportScreen"
+            element={<ReportScreen />}
+            name="reportScreen"
           />
         </Routes>
         {/* <Home /> */}

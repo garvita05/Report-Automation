@@ -36,7 +36,7 @@ const CourseReport = () => {
               <li>{data.semester}</li>
             </ul>
             <h2>Text Books</h2>
-            {data.text_Book_table.map((index) => {
+            {data?.text_Book_table.map((index) => {
               console.log(index);
               return (
                 <div>
@@ -48,7 +48,7 @@ const CourseReport = () => {
               );
             })}
             <h2>Modules</h2>
-            {data.Module_table.map((index) => {
+            {data?.Module_table.map((index) => {
               console.log(index);
               return (
                 <div>
@@ -62,7 +62,7 @@ const CourseReport = () => {
             })}
             <h2> Access the report from here</h2>
             <ul>
-              <li>{data.report_url}</li>
+              <li>{data?.course_ref?.course_code}</li>
             </ul>
 
             {/* {data.Module_table.forEach((table) => {
