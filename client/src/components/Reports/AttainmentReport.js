@@ -552,6 +552,7 @@ const AttainmentReport = () => {
         />
 
         <Button
+          className={classes.submitButton}
           onClick={() => {
             handleSubmit();
           }}

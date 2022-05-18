@@ -7,6 +7,9 @@ export default makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  arrow: {
+    color: "#8083c9",
+  },
   pageContent: {
     padding: theme.spacing(5),
     margin: theme.spacing(5),
@@ -16,6 +19,10 @@ export default makeStyles((theme) => ({
   },
   addButton: {
     marginTop: 10,
+  },
+  linkText: {
+    fontFamily: "Raleway",
+    color: "#8083c9",
   },
   minusButton: {
     marginTop: 10,
@@ -44,5 +51,9 @@ export default makeStyles((theme) => ({
   normalText: {
     marginLeft: 10,
     color: "#8083c9",
+  },
+  submitButton: {
+    backgroundColor: "#8083c9",
+    color: "#ffffff",
   },
 }));

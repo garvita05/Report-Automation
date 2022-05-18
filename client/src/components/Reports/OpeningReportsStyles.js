@@ -14,7 +14,11 @@ export default makeStyles((theme) => ({
     color: "#8083c9",
     fontWeight: "bold",
     marginLeft: 10,
-  }, 
+  },
+  submitButton: {
+    backgroundColor: "#8083c9",
+    color: "#ffffff",
+  },
   //   radio: {
   //     marginLeft: 100,
   //   },

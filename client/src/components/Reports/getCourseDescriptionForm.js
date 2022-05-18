@@ -2,7 +2,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Paper, Typography } from "@material-ui/core";
+import useStyles from "./getCourseStyles";
+import { AiFillFileImage } from "react-icons/ai";
 const GetCourseDescription = () => {
+  const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [data, setData] = useState([]);
@@ -36,20 +40,30 @@ const GetCourseDescription = () => {
   };
   return (
     <div>
-      {data.length === 0 && <p>Nothing to fetch, No record found</p>}
-      {data.map((instance, i) => {
-        return (
-          <div
-            key={i}
-            onClick={() => {
-              console.log(instance._id);
-              handleClick(instance._id);
-            }}
-          >
-            <p key={i}>{instance._id}</p>
-          </div>
-        );
-      })}
+      <Paper className={classes.pageContent}>
+        <Typography className={classes.typoText}>
+          Edit your Existing Course Description Reports:
+        </Typography>
+        {data.length === 0 && <p>Nothing to fetch, No record found</p>}
+        {data.map((instance, i) => {
+          return (
+            <div
+              key={i}
+              onClick={() => {
+                console.log(instance._id);
+                handleClick(instance._id);
+              }}
+              className={classes.divMain}
+            >
+              <AiFillFileImage />
+
+              <Typography key={i} className={classes.idText}>
+                {instance._id}
+              </Typography>
+            </div>
+          );
+        })}
+      </Paper>
       <p></p>
     </div>
   );

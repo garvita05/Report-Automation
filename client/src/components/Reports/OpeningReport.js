@@ -750,7 +750,9 @@ const OpeningReport = () => {
             style={{ width: "80%", height: "70%" }}
           />
         </Form>
-        <Button onClick={handleSubmit}>submit</Button>
+        <Button className={classes.submitButton} onClick={handleSubmit}>
+          submit
+        </Button>
       </Paper>
     </div>
   );

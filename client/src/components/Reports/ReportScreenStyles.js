@@ -7,20 +7,23 @@ export default makeStyles((theme) => ({
   pageContent: {
     padding: theme.spacing(5),
     margin: theme.spacing(5),
-    width: "100%",
+    width: "85%",
+  },
+  headerText: {
+    fontFamily: "Raleway",
+    fontSize: 50,
+    color: "#8083c9",
+  },
+  linkText: {
+    fontSize: 30,
+    color: "#000000",
+    fontFamily: "Raleway",
   },
   typoText: {
     fontFamily: "Raleway",
     color: "#8083c9",
     fontWeight: "bold",
     marginLeft: 10,
-  },
-  mapping: {
-    margin: theme.spacing(2),
-  },
-  submitButton: {
-    backgroundColor: "#8083c9",
-    color: "#ffffff",
   },
   //   radio: {
   //     marginLeft: 100,

@@ -24,6 +24,7 @@ import TableRow from "@material-ui/core/TableRow";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 const CourseDescription1 = () => {
   let navigate = useNavigate();
@@ -402,7 +403,10 @@ const CourseDescription1 = () => {
   return (
     <Container className={classes.mainLayout}>
       <Paper className={classes.pageContent}>
-        <Link to="getCourseDescription">Get Course Description</Link>
+        <AiOutlineArrowRight className={classes.arrow} />
+        <Link to="getCourseDescription" className={classes.linkText}>
+          Get Course Description forms
+        </Link>
         <Typography className={classes.headerText} align="center">
           Course Description Form
         </Typography>
@@ -835,6 +839,7 @@ const CourseDescription1 = () => {
           </div>
 
           <Button
+            className={classes.submitButton}
             onClick={() => {
               handleSubmit();
             }}
