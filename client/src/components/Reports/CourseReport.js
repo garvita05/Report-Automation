@@ -319,7 +319,7 @@ const CourseReport = () => {
             /> */}
               <Controls.Select
                 name="creditsLecture"
-                label="Credits Lecture"
+                label="Credits "
                 value={data?.course_ref?.course_credits}
                 onChange={handleInputChange}
                 options={lectureCreditItems}
@@ -617,6 +617,7 @@ const CourseReport = () => {
                 Reference Books
               </Typography>
             </div>
+
             {books.map((books, index5) => (
               <div key={index5} className={classes.insideDiv}>
                 <TextField

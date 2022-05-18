@@ -83,7 +83,7 @@ const CustomNavbar = () => {
         {/* <text className={classes.navbarText}>
                     Reports
                 </text> */}
-        <text className={classes.navbarText}>My Reports</text>
+
         <text className={classes.navbarText}>My Profile</text>
 
         <text className={classes.navbarText}>About Us</text>
